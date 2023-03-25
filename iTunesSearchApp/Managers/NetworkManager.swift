@@ -5,7 +5,7 @@
 //  Created by Ezgi Üstünel on 25.03.2023.
 //
 
-import Foundation
+import UIKit
 
 final class NetworkManager {
     static var shared = NetworkManager()
@@ -18,11 +18,6 @@ final class NetworkManager {
     }
     
     private func downloadImage(imageURL: URL, completion: @escaping (Data?, Error?) -> (Void)) {
-        if let imageData = images.object(forKey: imageURL.absoluteString as NSString) {
-            completion(imageData as Data, nil)
-            return
-        }
-        
         let task = session.downloadTask(with: imageURL) { localUrl, response, error in
             if let error = error {
                 completion(nil, error)
@@ -36,7 +31,6 @@ final class NetworkManager {
             
             do {
                 let data = try Data(contentsOf: localUrl)
-                self.images.setObject(data as NSData, forKey: imageURL.absoluteString as NSString)
                 completion(data, nil)
             } catch let error {
                 completion(nil, error)
@@ -49,5 +43,34 @@ final class NetworkManager {
     func image(imageURL: String, completion: @escaping (Data?, Error?) -> (Void)) {
         let url = URL(string: imageURL)!
         downloadImage(imageURL: url, completion: completion)
+    }
+    
+    func downloadAllImages(_ urls: [String], completion: @escaping ([UIImage]) -> Void) {
+        let queue = DispatchQueue(label: "com.gcd.iTuneSearchQueue", qos: .utility, attributes: .concurrent)
+        let group = DispatchGroup()
+        let semaphore = DispatchSemaphore(value: 3)
+        var allImages = [UIImage]()
+        
+        for url in urls {
+            group.enter()
+            queue.async {
+                semaphore.wait()
+                self.image(imageURL: url) { data, error in
+                    defer {
+                        semaphore.signal()
+                        group.leave()
+                    }
+                    if error == nil {
+                        if let data = data {
+                            allImages.append(UIImage(data: data) ?? UIImage())
+                        }
+                    }
+                }
+            }
+        }
+        
+        group.notify(queue: .main) {
+            completion(allImages)
+        }
     }
 }
