@@ -44,7 +44,7 @@ final class SearchVM: ObservableObject {
         }
         
         group.notify(queue: .main) {
-            //NotificationCenter.default.post(name: NSNotification.Name.ReloadImageCollectionView, object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name.ReloadImageCollectionView, object: nil)
         }
     }
 }

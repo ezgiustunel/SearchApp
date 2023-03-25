@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeVC: UIViewController, UISearchBarDelegate {
+final class HomeVC: UIViewController {
     
     private let searchController = UISearchController(searchResultsController: nil)
     var searchVM = SearchVM()
@@ -15,10 +15,17 @@ final class HomeVC: UIViewController, UISearchBarDelegate {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: .ReloadImageCollectionView, object: nil)
+
         setupUI()
         setupData()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .ReloadImageCollectionView, object: nil)
+    }
+    
+    // MARK: - Setup
     private func setupUI() {
         searchController.searchBar.delegate = self
         searchController.searchBar.tintColor = UIColor.systemOrange
@@ -26,6 +33,26 @@ final class HomeVC: UIViewController, UISearchBarDelegate {
     }
     
     private func setupData() {
-        searchVM.loadItems(term: "instagram")
+        searchVM.loadItems(term: "apple")
     }
+    
+    //Notification
+    @objc func reloadCollectionView() {
+        ImageHelper.splitImagesBySize(images: <#T##[UIImage]#>)
+        DispatchQueue.main.async {
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
+extension HomeVC: UISearchBarDelegate {
+    
 }
