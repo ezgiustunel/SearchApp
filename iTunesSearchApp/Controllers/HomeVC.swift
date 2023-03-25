@@ -38,19 +38,11 @@ final class HomeVC: UIViewController {
     
     //Notification
     @objc func reloadCollectionView() {
-        let imagesWithCategories = ImageHelper.getAllImagesWithSizeCategories(images: searchVM.allImages)
+        _ = ImageHelper.getImageSections(images: searchVM.allImages)
         DispatchQueue.main.async {
             
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 extension HomeVC: UISearchBarDelegate {
