@@ -7,10 +7,25 @@
 
 import UIKit
 
-final class HomeVC: UIViewController {
-
+final class HomeVC: UIViewController, UISearchBarDelegate {
+    
+    private let searchController = UISearchController(searchResultsController: nil)
+    var searchVM = SearchVM()
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+        setupData()
+    }
+    
+    private func setupUI() {
+        searchController.searchBar.delegate = self
+        searchController.searchBar.tintColor = UIColor.systemOrange
+        navigationItem.searchController = searchController
+    }
+    
+    private func setupData() {
+        searchVM.loadItems(term: "instagram")
     }
 }

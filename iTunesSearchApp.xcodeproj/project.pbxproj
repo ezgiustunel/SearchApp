@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9B30755B29CE2386004386EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30755A29CE2386004386EA /* AppDelegate.swift */; };
 		9B30755D29CE2386004386EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30755C29CE2386004386EA /* SceneDelegate.swift */; };
-		9B30755F29CE2386004386EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30755E29CE2386004386EA /* ViewController.swift */; };
 		9B30756229CE2386004386EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B30756029CE2386004386EA /* Main.storyboard */; };
 		9B30756429CE2389004386EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B30756329CE2389004386EA /* Assets.xcassets */; };
 		9B30756729CE2389004386EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B30756529CE2389004386EA /* LaunchScreen.storyboard */; };
@@ -17,6 +16,15 @@
 		9B30757C29CE238A004386EA /* iTunesSearchAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30757B29CE238A004386EA /* iTunesSearchAppUITests.swift */; };
 		9B30757E29CE238A004386EA /* iTunesSearchAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30757D29CE238A004386EA /* iTunesSearchAppUITestsLaunchTests.swift */; };
 		9B30758C29CE28C3004386EA /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30758B29CE28C3004386EA /* HomeVC.swift */; };
+		9B3075A429CF1B30004386EA /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3075A329CF1B30004386EA /* API.swift */; };
+		9B3075A629CF1C47004386EA /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3075A529CF1C46004386EA /* APIRouter.swift */; };
+		9B3075A829CF25FD004386EA /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3075A729CF25FD004386EA /* SearchModel.swift */; };
+		9B3075AA29CF27B0004386EA /* SearchResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3075A929CF27B0004386EA /* SearchResponseModel.swift */; };
+		9B3075AC29CF2AB5004386EA /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3075AB29CF2AB5004386EA /* CustomError.swift */; };
+		9B3075AE29CF2B66004386EA /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3075AD29CF2B66004386EA /* SearchService.swift */; };
+		9B3075B029CF2CF4004386EA /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3075AF29CF2CF4004386EA /* SearchVM.swift */; };
+		9B3075B329CF3C02004386EA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3075B229CF3C02004386EA /* NetworkManager.swift */; };
+		9B3075B529CF3C4F004386EA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3075B429CF3C4F004386EA /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +48,6 @@
 		9B30755729CE2386004386EA /* iTunesSearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTunesSearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B30755A29CE2386004386EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B30755C29CE2386004386EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9B30755E29CE2386004386EA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9B30756129CE2386004386EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B30756329CE2389004386EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B30756629CE2389004386EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +58,15 @@
 		9B30757B29CE238A004386EA /* iTunesSearchAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesSearchAppUITests.swift; sourceTree = "<group>"; };
 		9B30757D29CE238A004386EA /* iTunesSearchAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesSearchAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9B30758B29CE28C3004386EA /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		9B3075A329CF1B30004386EA /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		9B3075A529CF1C46004386EA /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
+		9B3075A729CF25FD004386EA /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		9B3075A929CF27B0004386EA /* SearchResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseModel.swift; sourceTree = "<group>"; };
+		9B3075AB29CF2AB5004386EA /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
+		9B3075AD29CF2B66004386EA /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		9B3075AF29CF2CF4004386EA /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
+		9B3075B229CF3C02004386EA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		9B3075B429CF3C4F004386EA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +117,17 @@
 		9B30755929CE2386004386EA /* iTunesSearchApp */ = {
 			isa = PBXGroup;
 			children = (
-				9B30758A29CE28A8004386EA /* Controllers */,
 				9B30755A29CE2386004386EA /* AppDelegate.swift */,
 				9B30755C29CE2386004386EA /* SceneDelegate.swift */,
-				9B30755E29CE2386004386EA /* ViewController.swift */,
+				9B30759029CE2BAC004386EA /* API */,
+				9B30759129CE2BBF004386EA /* Config */,
+				9B30758A29CE28A8004386EA /* Controllers */,
+				9B30759329CE2CB1004386EA /* Helpers */,
+				9B3075B129CF3BE4004386EA /* Managers */,
+				9B30758D29CE2B88004386EA /* Models */,
+				9B30759229CE2CAB004386EA /* Services */,
+				9B30758F29CE2B98004386EA /* ViewModels */,
+				9B30758E29CE2B8F004386EA /* Views */,
 				9B30756029CE2386004386EA /* Main.storyboard */,
 				9B30756329CE2389004386EA /* Assets.xcassets */,
 				9B30756529CE2389004386EA /* LaunchScreen.storyboard */,
@@ -136,6 +159,71 @@
 				9B30758B29CE28C3004386EA /* HomeVC.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9B30758D29CE2B88004386EA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9B3075A729CF25FD004386EA /* SearchModel.swift */,
+				9B3075A929CF27B0004386EA /* SearchResponseModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9B30758E29CE2B8F004386EA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9B30758F29CE2B98004386EA /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				9B3075AF29CF2CF4004386EA /* SearchVM.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		9B30759029CE2BAC004386EA /* API */ = {
+			isa = PBXGroup;
+			children = (
+				9B3075A329CF1B30004386EA /* API.swift */,
+				9B3075A529CF1C46004386EA /* APIRouter.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		9B30759129CE2BBF004386EA /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				9B3075B429CF3C4F004386EA /* Constants.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		9B30759229CE2CAB004386EA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9B3075AD29CF2B66004386EA /* SearchService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9B30759329CE2CB1004386EA /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9B3075AB29CF2AB5004386EA /* CustomError.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		9B3075B129CF3BE4004386EA /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				9B3075B229CF3C02004386EA /* NetworkManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,10 +357,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B30755F29CE2386004386EA /* ViewController.swift in Sources */,
+				9B3075AE29CF2B66004386EA /* SearchService.swift in Sources */,
 				9B30758C29CE28C3004386EA /* HomeVC.swift in Sources */,
+				9B3075AC29CF2AB5004386EA /* CustomError.swift in Sources */,
+				9B3075A629CF1C47004386EA /* APIRouter.swift in Sources */,
+				9B3075B329CF3C02004386EA /* NetworkManager.swift in Sources */,
 				9B30755B29CE2386004386EA /* AppDelegate.swift in Sources */,
+				9B3075AA29CF27B0004386EA /* SearchResponseModel.swift in Sources */,
+				9B3075B029CF2CF4004386EA /* SearchVM.swift in Sources */,
+				9B3075A829CF25FD004386EA /* SearchModel.swift in Sources */,
+				9B3075A429CF1B30004386EA /* API.swift in Sources */,
 				9B30755D29CE2386004386EA /* SceneDelegate.swift in Sources */,
+				9B3075B529CF3C4F004386EA /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
