@@ -38,7 +38,7 @@ final class HomeVC: UIViewController {
     
     //Notification
     @objc func reloadCollectionView() {
-        ImageHelper.splitImagesBySize(images: <#T##[UIImage]#>)
+        let imagesWithCategories = ImageHelper.getAllImagesWithSizeCategories(images: searchVM.allImages)
         DispatchQueue.main.async {
             
         }

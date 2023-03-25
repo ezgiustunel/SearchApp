@@ -65,7 +65,7 @@ final class NetworkManager {
             
             do {
                 let data = try Data(contentsOf: localUrl)
-                print("EZGI SIZE : ", localUrl.fileSize)
+                //print("EZGI SIZE : ", localUrl.fileSize)
                 completion(data, nil)
             } catch let error {
                 completion(nil, error)
