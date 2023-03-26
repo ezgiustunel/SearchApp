@@ -31,6 +31,7 @@ final class HomeVC: UIViewController {
     private func setupUI() {
         searchController.searchBar.delegate = self
         searchController.searchBar.tintColor = UIColor.systemOrange
+        searchController.searchBar.returnKeyType = .search
         navigationItem.searchController = searchController
         
         //CollectionView
@@ -51,17 +52,17 @@ final class HomeVC: UIViewController {
             switch section {
             case .lessOrEqual100kb:
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .absolute(70), heightDimension: .absolute(70)), subitems: [item])
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(0.3)), subitems: [item])
                 let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuous
+                section.orthogonalScrollingBehavior = .groupPagingCentered
                 section.interGroupSpacing = 10
                 section.contentInsets = .init(top: 0, leading: 10, bottom: 30, trailing: 10)
-                //section.boundarySupplementaryItems = [self?.supplementaryHeaderItem()]
+                //section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
                 section.supplementariesFollowContentInsets = false
                 return section
             case .between101and250kb:
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(0.6)), subitems: [item])
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.6), heightDimension: .fractionalHeight(0.4)), subitems: [item])
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .groupPagingCentered
                 section.interGroupSpacing = 10
@@ -71,22 +72,22 @@ final class HomeVC: UIViewController {
                 return section
             case .between251and500kb:
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .absolute(170), heightDimension: .absolute(80)), subitems: [item])
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.7), heightDimension: .fractionalHeight(0.5)), subitems: [item])
                 let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuous
+                section.orthogonalScrollingBehavior = .groupPagingCentered
                 section.interGroupSpacing = 10
-                section.contentInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 10)
+                section.contentInsets = .init(top: 0, leading: 10, bottom: 30, trailing: 10)
                 //section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
                 section.supplementariesFollowContentInsets = false
                 return section
                 
             case .higherThan500kb:
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .absolute(170), heightDimension: .absolute(80)), subitems: [item])
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(0.6)), subitems: [item])
                 let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuous
+                section.orthogonalScrollingBehavior = .groupPagingCentered
                 section.interGroupSpacing = 10
-                section.contentInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 10)
+                section.contentInsets = .init(top: 0, leading: 10, bottom: 30, trailing: 10)
                 //section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
                 section.supplementariesFollowContentInsets = false
                 return section
@@ -161,5 +162,8 @@ extension HomeVC: UICollectionViewDataSource {
 }
 
 extension HomeVC: UISearchBarDelegate {
-    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else { return }
+        searchVM.loadItems(term: searchText)
+    }
 }
