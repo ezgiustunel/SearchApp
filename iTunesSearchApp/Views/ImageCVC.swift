@@ -12,7 +12,6 @@ final class ImageCVC: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     func setData(imageModel: SearchImageModel) {

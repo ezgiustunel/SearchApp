@@ -11,7 +11,7 @@ protocol SearchServiceDelegate {
     func getItems(term: String, completion:@escaping (Result<SearchResponseModel, Error>) -> Void)
 }
 
-class SearchService: SearchServiceDelegate {
+final class SearchService: SearchServiceDelegate {
     func getItems(term: String, completion: @escaping (Result<SearchResponseModel, Error>) -> Void) {
         
         let searchEndpoint = APIRouter.search(term: term)

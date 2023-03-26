@@ -14,12 +14,22 @@ enum ImageCategoryType {
     case higherThan500kb
 }
 
-struct SearchImageModel {
+final class SearchImageModel: Hashable {
+    var id = UUID()
     var image: UIImage
     var categoryType: ImageCategoryType
     
     init(image: UIImage, withCategoryType categoryType: ImageCategoryType) {
         self.image = image
         self.categoryType = categoryType
+    }
+    
+    func hash(into hasher: inout Hasher) {
+      // 2
+      hasher.combine(id)
+    }
+    // 3
+    static func == (lhs: SearchImageModel, rhs: SearchImageModel) -> Bool {
+      lhs.id == rhs.id
     }
 }

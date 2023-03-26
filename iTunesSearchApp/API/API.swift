@@ -7,7 +7,7 @@
 
 import Foundation
 
-class API {
+final class API {
     let request: URLRequest
     lazy var configuration: URLSessionConfiguration = URLSessionConfiguration.default
     lazy var session: URLSession = URLSession(configuration: self.configuration)

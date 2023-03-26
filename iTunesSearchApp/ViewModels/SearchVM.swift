@@ -17,6 +17,7 @@ final class SearchVM: ObservableObject {
     }
     
     func loadItems(term: String) {
+        ImageHelper.shared.cleanAllItems()
         searchService.getItems(term: term) { result in
             switch result {
             case .success(let response):
@@ -31,20 +32,21 @@ final class SearchVM: ObservableObject {
     
     private func loadScreenShotImages(items: [SearchModel]) {
         let group = DispatchGroup()
-        var allImages = [String]()
+        var allImageUrls = [String]()
         
         for item in items {
-            allImages.append(contentsOf: item.screenshotUrls)
+            allImageUrls.append(contentsOf: item.screenshotUrls)
         }
         
         group.enter()
-        NetworkManager.shared.downloadAllImages(allImages) { result in
+                
+        NetworkManager.shared.downloadAllImages(allImageUrls) { result in
             self.allImages = result
             group.leave()
         }
         
         group.notify(queue: .main) {
-            NotificationCenter.default.post(name: NSNotification.Name.ReloadImageCollectionView, object: nil)
+            // NotificationCenter.default.post(name: NSNotification.Name.ReloadImageCollectionView, object: nil)
         }
     }
 }

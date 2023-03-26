@@ -34,6 +34,7 @@ final class NetworkManager {
                     }
                     if error == nil {
                         if let data = data {
+                            ImageHelper.shared.getImageSections(image: UIImage(data: data) ?? UIImage())
                             allImages.append(UIImage(data: data) ?? UIImage())
                         }
                     }
@@ -65,7 +66,6 @@ final class NetworkManager {
             
             do {
                 let data = try Data(contentsOf: localUrl)
-                //print("EZGI SIZE : ", localUrl.fileSize)
                 completion(data, nil)
             } catch let error {
                 completion(nil, error)
