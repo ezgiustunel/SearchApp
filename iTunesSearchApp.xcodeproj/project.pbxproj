@@ -32,6 +32,8 @@
 		9BB53DAB29CF89F000A7FA1F /* MockSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DAA29CF89F000A7FA1F /* MockSearchService.swift */; };
 		9BB53DAD29CF8AFF00A7FA1F /* SearchItems.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BB53DAC29CF8AFF00A7FA1F /* SearchItems.json */; };
 		9BB53DAF29CF8B3000A7FA1F /* SearchVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DAE29CF8B3000A7FA1F /* SearchVMTests.swift */; };
+		9BB53DB229D0721E00A7FA1F /* ImageCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DB029D0721E00A7FA1F /* ImageCVC.swift */; };
+		9BB53DB329D0721E00A7FA1F /* ImageCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BB53DB129D0721E00A7FA1F /* ImageCVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		9BB53DAA29CF89F000A7FA1F /* MockSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchService.swift; sourceTree = "<group>"; };
 		9BB53DAC29CF8AFF00A7FA1F /* SearchItems.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SearchItems.json; sourceTree = "<group>"; };
 		9BB53DAE29CF8B3000A7FA1F /* SearchVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVMTests.swift; sourceTree = "<group>"; };
+		9BB53DB029D0721E00A7FA1F /* ImageCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCVC.swift; sourceTree = "<group>"; };
+		9BB53DB129D0721E00A7FA1F /* ImageCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +196,8 @@
 		9B30758E29CE2B8F004386EA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9BB53DB029D0721E00A7FA1F /* ImageCVC.swift */,
+				9BB53DB129D0721E00A7FA1F /* ImageCVC.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -359,6 +365,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BB53DB329D0721E00A7FA1F /* ImageCVC.xib in Resources */,
 				9B30756729CE2389004386EA /* LaunchScreen.storyboard in Resources */,
 				9B30756429CE2389004386EA /* Assets.xcassets in Resources */,
 				9B30756229CE2386004386EA /* Main.storyboard in Resources */,
@@ -391,6 +398,7 @@
 				9B30758C29CE28C3004386EA /* HomeVC.swift in Sources */,
 				9B3075AC29CF2AB5004386EA /* CustomError.swift in Sources */,
 				9B3075A629CF1C47004386EA /* APIRouter.swift in Sources */,
+				9BB53DB229D0721E00A7FA1F /* ImageCVC.swift in Sources */,
 				9B3075B329CF3C02004386EA /* NetworkManager.swift in Sources */,
 				9BB53DA529CF77EF00A7FA1F /* URL+Extension.swift in Sources */,
 				9B30755B29CE2386004386EA /* AppDelegate.swift in Sources */,
