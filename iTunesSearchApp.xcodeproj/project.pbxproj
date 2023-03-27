@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9B30755B29CE2386004386EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30755A29CE2386004386EA /* AppDelegate.swift */; };
 		9B30755D29CE2386004386EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30755C29CE2386004386EA /* SceneDelegate.swift */; };
-		9B30756229CE2386004386EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B30756029CE2386004386EA /* Main.storyboard */; };
 		9B30756429CE2389004386EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B30756329CE2389004386EA /* Assets.xcassets */; };
 		9B30756729CE2389004386EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B30756529CE2389004386EA /* LaunchScreen.storyboard */; };
 		9B30757229CE238A004386EA /* iTunesSearchAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30757129CE238A004386EA /* iTunesSearchAppTests.swift */; };
@@ -33,7 +32,7 @@
 		9BB53DAD29CF8AFF00A7FA1F /* SearchItems.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BB53DAC29CF8AFF00A7FA1F /* SearchItems.json */; };
 		9BB53DAF29CF8B3000A7FA1F /* SearchVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DAE29CF8B3000A7FA1F /* SearchVMTests.swift */; };
 		9BB53DB229D0721E00A7FA1F /* ImageCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DB029D0721E00A7FA1F /* ImageCVC.swift */; };
-		9BB53DB329D0721E00A7FA1F /* ImageCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BB53DB129D0721E00A7FA1F /* ImageCVC.xib */; };
+		9BB53DB529D1ED1700A7FA1F /* ImagePreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DB429D1ED1700A7FA1F /* ImagePreviewVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +56,6 @@
 		9B30755729CE2386004386EA /* iTunesSearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTunesSearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B30755A29CE2386004386EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B30755C29CE2386004386EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9B30756129CE2386004386EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B30756329CE2389004386EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B30756629CE2389004386EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B30756829CE2389004386EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,7 +82,7 @@
 		9BB53DAC29CF8AFF00A7FA1F /* SearchItems.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SearchItems.json; sourceTree = "<group>"; };
 		9BB53DAE29CF8B3000A7FA1F /* SearchVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVMTests.swift; sourceTree = "<group>"; };
 		9BB53DB029D0721E00A7FA1F /* ImageCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCVC.swift; sourceTree = "<group>"; };
-		9BB53DB129D0721E00A7FA1F /* ImageCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCVC.xib; sourceTree = "<group>"; };
+		9BB53DB429D1ED1700A7FA1F /* ImagePreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +145,6 @@
 				9B30759229CE2CAB004386EA /* Services */,
 				9B30758F29CE2B98004386EA /* ViewModels */,
 				9B30758E29CE2B8F004386EA /* Views */,
-				9B30756029CE2386004386EA /* Main.storyboard */,
 				9B30756329CE2389004386EA /* Assets.xcassets */,
 				9B30756529CE2389004386EA /* LaunchScreen.storyboard */,
 				9B30756829CE2389004386EA /* Info.plist */,
@@ -179,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				9B30758B29CE28C3004386EA /* HomeVC.swift */,
+				9BB53DB429D1ED1700A7FA1F /* ImagePreviewVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -197,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				9BB53DB029D0721E00A7FA1F /* ImageCVC.swift */,
-				9BB53DB129D0721E00A7FA1F /* ImageCVC.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -365,10 +362,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BB53DB329D0721E00A7FA1F /* ImageCVC.xib in Resources */,
 				9B30756729CE2389004386EA /* LaunchScreen.storyboard in Resources */,
 				9B30756429CE2389004386EA /* Assets.xcassets in Resources */,
-				9B30756229CE2386004386EA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +398,7 @@
 				9BB53DA529CF77EF00A7FA1F /* URL+Extension.swift in Sources */,
 				9B30755B29CE2386004386EA /* AppDelegate.swift in Sources */,
 				9B3075AA29CF27B0004386EA /* SearchResponseModel.swift in Sources */,
+				9BB53DB529D1ED1700A7FA1F /* ImagePreviewVC.swift in Sources */,
 				9B3075B029CF2CF4004386EA /* SearchVM.swift in Sources */,
 				9BB53DA229CF761500A7FA1F /* ImageHelper.swift in Sources */,
 				9B3075A829CF25FD004386EA /* SearchModel.swift in Sources */,
@@ -449,14 +445,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9B30756029CE2386004386EA /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9B30756129CE2386004386EA /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9B30756529CE2389004386EA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -594,7 +582,7 @@
 				INFOPLIST_FILE = iTunesSearchApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -625,7 +613,7 @@
 				INFOPLIST_FILE = iTunesSearchApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

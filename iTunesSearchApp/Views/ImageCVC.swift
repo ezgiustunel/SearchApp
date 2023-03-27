@@ -8,13 +8,42 @@
 import UIKit
 
 final class ImageCVC: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
+    static let reuseIdentifier = String(describing: ImageCVC.self)
     
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    // MARK: - View Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    // MARK: - Setup
     func setData(imageModel: SearchImageModel) {
         imageView.image = imageModel.image
+    }
+    
+    // MARK: - Add Views
+    private func addViews() {
+        backgroundColor = UIColor.clear
+        addSubview(imageView)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
+        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
     }
 }

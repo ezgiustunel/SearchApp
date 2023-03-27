@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 enum ImageSection: CaseIterable {
     case lessOrEqual100kb
     case between101and250kb

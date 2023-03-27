@@ -8,8 +8,7 @@
 import UIKit
 
 final class HomeVC: UIViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
-    
+    private var collectionView: UICollectionView?
     private let searchController = UISearchController(searchResultsController: nil)
     private var searchVM = SearchVM()
     private var imageSections = [[SearchImageModel]]()
@@ -31,18 +30,39 @@ final class HomeVC: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: .ReloadImageCollectionView, object: nil)
     }
-
+    
     // MARK: - Setup
     private func setupUI() {
+        //SearchBar
+        searchController.hidesNavigationBarDuringPresentation = false;
         searchController.searchBar.delegate = self
-        searchController.searchBar.tintColor = UIColor.systemOrange
-        searchController.searchBar.returnKeyType = .search
-        navigationItem.searchController = searchController
+        let searchBar = searchController.searchBar
+        navigationController?.navigationBar.addSubview(searchBar)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        let leftConstraint = NSLayoutConstraint(item: searchBar, attribute: .leading, relatedBy: .equal, toItem: navigationController?.navigationBar, attribute: .leading, multiplier: 1, constant: 20)
+        let bottomConstraint = NSLayoutConstraint(item: searchBar, attribute: .bottom, relatedBy: .equal, toItem: navigationController?.navigationBar, attribute: .bottom, multiplier: 1, constant: 1)
+        let topConstraint = NSLayoutConstraint(item: searchBar, attribute: .top, relatedBy: .equal, toItem: navigationController?.navigationBar, attribute: .top, multiplier: 1, constant: 1)
+        let widthConstraint = NSLayoutConstraint(item: searchBar, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: self.view.frame.size.width - 40)
+        navigationController?.navigationBar.addConstraints([leftConstraint, bottomConstraint, topConstraint, widthConstraint])
         
         //CollectionView
-        let customCellNib: UINib = UINib(nibName: "ImageCVC", bundle: nil)
-        collectionView.register(customCellNib, forCellWithReuseIdentifier: "ImageCVC")
-        collectionView.collectionViewLayout = createLayout()
+        let customCellNib: UINib = UINib(nibName: ImageCVC.reuseIdentifier, bundle: nil)
+        collectionView = UICollectionView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height)), collectionViewLayout: createLayout())
+        collectionView?.bounces = false
+        //collectionView?.register(customCellNib, forCellWithReuseIdentifier: ImageCVC.reuseIdentifier)
+        
+        collectionView?.register(ImageCVC.self, forCellWithReuseIdentifier: ImageCVC.reuseIdentifier)
+
+        
+        
+        view.addSubview(collectionView ?? UICollectionView())
+        
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        collectionView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
     }
     
     private func setupData() {
@@ -52,9 +72,9 @@ final class HomeVC: UIViewController {
     
     // MARK: - CollectionView Diffable DataSource
     private func configureDataSource() -> UICollectionViewDiffableDataSource<ImageSection, SearchImageModel> {
-        let dataSource = UICollectionViewDiffableDataSource<ImageSection, SearchImageModel>(collectionView: collectionView) { (collectionView, indexPath, imageModel) -> UICollectionViewCell? in
+        let dataSource = UICollectionViewDiffableDataSource<ImageSection, SearchImageModel>(collectionView: collectionView ?? UICollectionView()) { (collectionView, indexPath, imageModel) -> UICollectionViewCell? in
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCVC", for: indexPath) as! ImageCVC
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCVC.reuseIdentifier, for: indexPath) as! ImageCVC
             cell.setData(imageModel: imageModel)
             return cell
         }
@@ -85,7 +105,7 @@ final class HomeVC: UIViewController {
             let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(0.3)), subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = .continuous
+            section.orthogonalScrollingBehavior = .groupPaging
             section.interGroupSpacing = 10
             section.contentInsets = .init(top: 0, leading: 10, bottom: 30, trailing: 10)
             //section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]

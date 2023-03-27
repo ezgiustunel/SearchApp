@@ -25,10 +25,9 @@ final class SearchImageModel: Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-      // 2
       hasher.combine(id)
     }
-    // 3
+    
     static func == (lhs: SearchImageModel, rhs: SearchImageModel) -> Bool {
       lhs.id == rhs.id
     }
