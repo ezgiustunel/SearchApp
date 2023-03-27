@@ -47,14 +47,10 @@ final class HomeVC: UIViewController {
         navigationController?.navigationBar.addConstraints([leftConstraint, bottomConstraint, topConstraint, widthConstraint])
         
         //CollectionView
-        let customCellNib: UINib = UINib(nibName: ImageCVC.reuseIdentifier, bundle: nil)
         collectionView = UICollectionView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height)), collectionViewLayout: createLayout())
         collectionView?.bounces = false
-        //collectionView?.register(customCellNib, forCellWithReuseIdentifier: ImageCVC.reuseIdentifier)
-        
+        collectionView?.delegate = self
         collectionView?.register(ImageCVC.self, forCellWithReuseIdentifier: ImageCVC.reuseIdentifier)
-
-        
         
         view.addSubview(collectionView ?? UICollectionView())
         
@@ -68,35 +64,6 @@ final class HomeVC: UIViewController {
     private func setupData() {
         searchVM.loadItems(term: "apple")
         dataSource = configureDataSource()
-    }
-    
-    // MARK: - CollectionView Diffable DataSource
-    private func configureDataSource() -> UICollectionViewDiffableDataSource<ImageSection, SearchImageModel> {
-        let dataSource = UICollectionViewDiffableDataSource<ImageSection, SearchImageModel>(collectionView: collectionView ?? UICollectionView()) { (collectionView, indexPath, imageModel) -> UICollectionViewCell? in
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCVC.reuseIdentifier, for: indexPath) as! ImageCVC
-            cell.setData(imageModel: imageModel)
-            return cell
-        }
-        return dataSource
-    }
-    
-    @objc func updateDataSource() {
-        imageSections = ImageHelper.shared.imageSectionData
-        
-        snapshot = DataSourceSnapshot()
-        
-        snapshot.appendSections([ImageSection.lessOrEqual100kb,
-                                 ImageSection.between101and250kb,
-                                 ImageSection.between251and500kb,
-                                 ImageSection.higherThan500kb])
-        
-        snapshot.appendItems(imageSections[0], toSection: .lessOrEqual100kb)
-        snapshot.appendItems(imageSections[1], toSection: .between101and250kb)
-        snapshot.appendItems(imageSections[2], toSection: .between251and500kb)
-        snapshot.appendItems(imageSections[3], toSection: .higherThan500kb)
-        
-        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     // MARK: - Layout
@@ -117,11 +84,46 @@ final class HomeVC: UIViewController {
     private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
         .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
     }
+    
+    // MARK: - CollectionView Diffable DataSource
+    private func configureDataSource() -> UICollectionViewDiffableDataSource<ImageSection, SearchImageModel> {
+        let dataSource = UICollectionViewDiffableDataSource<ImageSection, SearchImageModel>(collectionView: collectionView ?? UICollectionView()) { (collectionView, indexPath, imageModel) -> UICollectionViewCell? in
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCVC.reuseIdentifier, for: indexPath) as! ImageCVC
+            cell.setData(imageModel: imageModel)
+            return cell
+        }
+        return dataSource
+    }
+    
+    // MARK: - Notification
+    @objc func updateDataSource() {
+        imageSections = ImageHelper.shared.imageSectionData
+        
+        snapshot = DataSourceSnapshot()
+        
+        snapshot.appendSections([ImageSection.lessOrEqual100kb,
+                                 ImageSection.between101and250kb,
+                                 ImageSection.between251and500kb,
+                                 ImageSection.higherThan500kb])
+        
+        snapshot.appendItems(imageSections[0], toSection: .lessOrEqual100kb)
+        snapshot.appendItems(imageSections[1], toSection: .between101and250kb)
+        snapshot.appendItems(imageSections[2], toSection: .between251and500kb)
+        snapshot.appendItems(imageSections[3], toSection: .higherThan500kb)
+        
+        dataSource.apply(snapshot, animatingDifferences: false)
+    }
 }
 
 extension HomeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        guard let imageModel = dataSource.itemIdentifier(for: indexPath) else { return }
+        let vc = ImagePreviewVC()
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        vc.image = imageModel.image
+        present(vc, animated: true)
     }
 }
 

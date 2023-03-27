@@ -9,9 +9,7 @@ import Foundation
 
 struct Constants {
     //API
-    static let baseURL = "https://itunes.apple.com/"
-    
-    //Identifiers
+    static let baseURL = "https://itunes.apple.com/"    
 }
 
 extension Notification.Name {
