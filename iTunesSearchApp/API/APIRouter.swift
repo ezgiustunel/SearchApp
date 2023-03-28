@@ -35,7 +35,7 @@ enum APIRouter {
     }
     
     private struct DefaultValues {
-        static let term = "apple"
+        static let term = "world"
         static let media = "software"
     }
     

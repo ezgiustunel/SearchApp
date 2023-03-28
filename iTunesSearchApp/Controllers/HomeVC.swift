@@ -62,7 +62,7 @@ final class HomeVC: UIViewController {
     }
     
     private func setupData() {
-        searchVM.loadItems(term: "apple")
+        searchVM.loadItems(term: "hypercasual")
         dataSource = configureDataSource()
     }
     
@@ -76,6 +76,7 @@ final class HomeVC: UIViewController {
             section.interGroupSpacing = 10
             section.contentInsets = .init(top: 0, leading: 10, bottom: 30, trailing: 10)
             //section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
+            
             section.supplementariesFollowContentInsets = false
             return section
         }

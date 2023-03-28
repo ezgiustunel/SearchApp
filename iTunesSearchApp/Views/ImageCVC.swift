@@ -33,6 +33,7 @@ final class ImageCVC: UICollectionViewCell {
     // MARK: - Setup
     func setData(imageModel: SearchImageModel) {
         imageView.image = imageModel.image
+        self.backgroundColor = UIColor.black.withAlphaComponent(0.05)
     }
     
     // MARK: - Add Views
