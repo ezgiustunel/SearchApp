@@ -15,7 +15,7 @@ protocol SearchViewProtocol {
     func showEmpty()
 }
 
-final class HomeVC: UIViewController, SearchViewProtocol {
+final class HomeVC: UIViewController {
     private var collectionView: UICollectionView?
     private var noDataView: UIView = UIView()
     private let searchController = UISearchController(searchResultsController: nil)
@@ -51,7 +51,6 @@ final class HomeVC: UIViewController, SearchViewProtocol {
         let widthConstraint = NSLayoutConstraint(item: searchBar, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: self.view.frame.size.width - 40)
         navigationController?.navigationBar.addConstraints([leftConstraint, bottomConstraint, topConstraint, widthConstraint])
         
-        
         //CollectionView
         collectionView = UICollectionView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height)), collectionViewLayout: createLayout())
         collectionView?.bounces = false
@@ -64,7 +63,6 @@ final class HomeVC: UIViewController, SearchViewProtocol {
         collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         collectionView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-        
         
         //No Data View
         noDataView.backgroundColor = UIColor.clear
@@ -121,7 +119,6 @@ final class HomeVC: UIViewController, SearchViewProtocol {
         return dataSource
     }
     
-    // MARK: - Notification
     func updateDataSource(viewModel: SearchList.ImageModel.ViewModel) {
         snapshot = DataSourceSnapshot()
         
@@ -130,11 +127,30 @@ final class HomeVC: UIViewController, SearchViewProtocol {
             snapshot.appendSections([sizeType])
             snapshot.appendItems(images, toSection: sizeType)
         }
-        
         dataSource.apply(snapshot, animatingDifferences: false)
     }
-    
-    // MARK: - Notification
+}
+
+// MARK: - UICollectionViewDelegate
+extension HomeVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let imageModel = dataSource.itemIdentifier(for: indexPath) else { return }
+        router?.navigatePreviewPage(image: imageModel.imageData.image)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension HomeVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else { return }
+        searchController.isActive = false
+        searchController.searchBar.text = searchText
+        interactor?.filterSearchWith(term: searchText)
+    }
+}
+
+// MARK: - SearchViewProtocol
+extension HomeVC: SearchViewProtocol {
     func showNoData() {
         DispatchQueue.main.async {
             self.collectionView?.isHidden = true
@@ -155,21 +171,5 @@ final class HomeVC: UIViewController, SearchViewProtocol {
             self.noDataView.isHidden = true
             self.collectionView?.isHidden = true
         }
-    }
-}
-
-extension HomeVC: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let imageModel = dataSource.itemIdentifier(for: indexPath) else { return }
-        router?.navigatePreviewPage(image: imageModel.imageData.image)
-    }
-}
-
-extension HomeVC: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchText = searchBar.text else { return }
-        searchController.isActive = false
-        searchController.searchBar.text = searchText
-        interactor?.filterSearchWith(term: searchText)
     }
 }

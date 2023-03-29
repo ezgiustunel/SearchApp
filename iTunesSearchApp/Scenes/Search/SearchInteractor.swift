@@ -36,6 +36,8 @@ final class SearchInteractor: SearchInteractorProtocol {
                         if let data = data {
                             self.presenter?.presentSearchData(imageModel: SearchList.ImageModel(imageData: data, categoryType: .lessOrEqual100kb))
                         }
+                    } else {
+                        self.presenter?.presentNoData()
                     }
                 }
             }

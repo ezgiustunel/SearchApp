@@ -31,7 +31,6 @@ enum SearchList {
         
         struct ViewModel {
             var allImages: [ImageModel]
-            
         }
     }
 }

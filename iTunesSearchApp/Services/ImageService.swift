@@ -12,7 +12,7 @@ protocol ImageServiceProtocol {
     func downloadImage(imageURL: URL, completion: @escaping (Data?, Error?) -> (Void))
 }
 
-class ImageService: ImageServiceProtocol {
+final class ImageService: ImageServiceProtocol {
     private var images = NSCache<NSString, NSData>()
     let session: URLSession
     

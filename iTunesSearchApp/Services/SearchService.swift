@@ -13,7 +13,6 @@ protocol SearchServiceProtocol {
 
 final class SearchService: SearchServiceProtocol {
     func getItems(term: String, completion: @escaping (Result<SearchResponseModel, Error>) -> Void) {
-        
         let searchEndpoint = APIRouter.search(term: term)
         let searchUrlRequest = searchEndpoint.request
         let api = APIService(request: searchUrlRequest)
