@@ -25,7 +25,7 @@
 		9BB53DA729CF804D00A7FA1F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DA629CF804D00A7FA1F /* UIImage+Extension.swift */; };
 		9BB53DAB29CF89F000A7FA1F /* MockSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DAA29CF89F000A7FA1F /* MockSearchService.swift */; };
 		9BB53DAD29CF8AFF00A7FA1F /* SearchItems.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BB53DAC29CF8AFF00A7FA1F /* SearchItems.json */; };
-		9BB53DAF29CF8B3000A7FA1F /* SearchVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DAE29CF8B3000A7FA1F /* SearchVMTests.swift */; };
+		9BB53DAF29CF8B3000A7FA1F /* SearchInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DAE29CF8B3000A7FA1F /* SearchInteractorTests.swift */; };
 		9BB53DB229D0721E00A7FA1F /* ImageCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DB029D0721E00A7FA1F /* ImageCVC.swift */; };
 		9BB53DB529D1ED1700A7FA1F /* ImagePreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DB429D1ED1700A7FA1F /* ImagePreviewVC.swift */; };
 		9BB53DD829D3154200A7FA1F /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB53DD729D3154200A7FA1F /* SearchInteractor.swift */; };
@@ -77,7 +77,7 @@
 		9BB53DA629CF804D00A7FA1F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		9BB53DAA29CF89F000A7FA1F /* MockSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchService.swift; sourceTree = "<group>"; };
 		9BB53DAC29CF8AFF00A7FA1F /* SearchItems.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SearchItems.json; sourceTree = "<group>"; };
-		9BB53DAE29CF8B3000A7FA1F /* SearchVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVMTests.swift; sourceTree = "<group>"; };
+		9BB53DAE29CF8B3000A7FA1F /* SearchInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractorTests.swift; sourceTree = "<group>"; };
 		9BB53DB029D0721E00A7FA1F /* ImageCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCVC.swift; sourceTree = "<group>"; };
 		9BB53DB429D1ED1700A7FA1F /* ImagePreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewVC.swift; sourceTree = "<group>"; };
 		9BB53DD729D3154200A7FA1F /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
@@ -158,7 +158,7 @@
 				9BB53DAC29CF8AFF00A7FA1F /* SearchItems.json */,
 				9B30757129CE238A004386EA /* iTunesSearchAppTests.swift */,
 				9BB53DAA29CF89F000A7FA1F /* MockSearchService.swift */,
-				9BB53DAE29CF8B3000A7FA1F /* SearchVMTests.swift */,
+				9BB53DAE29CF8B3000A7FA1F /* SearchInteractorTests.swift */,
 			);
 			path = iTunesSearchAppTests;
 			sourceTree = "<group>";
@@ -416,7 +416,7 @@
 			files = (
 				9B30757229CE238A004386EA /* iTunesSearchAppTests.swift in Sources */,
 				9BB53DAB29CF89F000A7FA1F /* MockSearchService.swift in Sources */,
-				9BB53DAF29CF8B3000A7FA1F /* SearchVMTests.swift in Sources */,
+				9BB53DAF29CF8B3000A7FA1F /* SearchInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +583,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -614,6 +616,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -23,6 +23,7 @@ enum SearchList {
         }
         
         enum SizeType: CaseIterable {
+            case none
             case lessOrEqual100kb
             case between101and250kb
             case between251and500kb

@@ -18,7 +18,8 @@ protocol SearchInteractorProtocol {
 final class SearchInteractor: SearchInteractorProtocol {
     var presenter: SearchPresenterProtocol?
     var worker: SearchWorkerProtocol = SearchWorker()
-    private var termText = "world"
+    private var termText = "instagram"
+    var totalItems: Int = 0
     
     func fetchImages(_ urls: [String]) {
         let queue = DispatchQueue(label: "com.gcd.iTuneSearchQueue", qos: .utility, attributes: .concurrent)
@@ -34,7 +35,7 @@ final class SearchInteractor: SearchInteractorProtocol {
                     }
                     if error == nil {
                         if let data = data {
-                            self.presenter?.presentSearchData(imageModel: SearchList.ImageModel(imageData: data, categoryType: .lessOrEqual100kb))
+                            self.presenter?.presentSearchData(imageModel: SearchList.ImageModel(imageData: data, categoryType: .none))
                         }
                     } else {
                         self.presenter?.presentNoData()
@@ -54,6 +55,7 @@ final class SearchInteractor: SearchInteractorProtocol {
                 } else {
                     self.presenter?.presentNoData()
                 }
+                self.totalItems = response.results.count
             case .failure(_):
                 self.presenter?.presentNoData()
             }

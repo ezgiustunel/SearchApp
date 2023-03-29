@@ -18,6 +18,7 @@ protocol SearchViewProtocol {
 final class HomeVC: UIViewController {
     private var collectionView: UICollectionView?
     private var noDataView: UIView = UIView()
+    private var noDataLabel: UILabel = UILabel()
     private let searchController = UISearchController(searchResultsController: nil)
     private var dataSource: DataSource!
     private var snapshot = DataSourceSnapshot()
@@ -37,11 +38,13 @@ final class HomeVC: UIViewController {
     
     // MARK: - Setup
     private func setupUI() {
+        view.overrideUserInterfaceStyle = .light
         self.view.backgroundColor = UIColor.white
         //SearchBar
         searchController.hidesNavigationBarDuringPresentation = false;
         searchController.searchBar.delegate = self
         let searchBar = searchController.searchBar
+        searchBar.tintColor = UIColor.white
         navigationController?.navigationBar.addSubview(searchBar)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         
@@ -66,19 +69,21 @@ final class HomeVC: UIViewController {
         
         //No Data View
         noDataView.backgroundColor = UIColor.clear
-        noDataView.isHidden = true
+        //noDataView.isHidden = true
         view.addSubview(noDataView)
         noDataView.translatesAutoresizingMaskIntoConstraints = false
 
-        noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
-        noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-        noDataView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        let noDataViewHorizontalConstraint = NSLayoutConstraint(item: noDataView, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: 0)
+        let noDataViewVerticalConstraint = NSLayoutConstraint(item: noDataView, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0)
+        let noDataViewWidthConstraint = NSLayoutConstraint(item: noDataView, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: view.frame.size.width)
+        let NoDataViewHeightConstraint = NSLayoutConstraint(item: noDataView, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 100)
         
-        let noDataLabel = UILabel()
-        noDataLabel.text = "No Search Results!"
-        noDataLabel.font = noDataLabel.font.withSize(30)
+        view.addConstraints([noDataViewHorizontalConstraint, noDataViewVerticalConstraint, noDataViewWidthConstraint, NoDataViewHeightConstraint])
+        
+        noDataLabel.text = "Search something..."
+        noDataLabel.font = noDataLabel.font.withSize(25)
         noDataLabel.textAlignment = .center
+        noDataLabel.textColor = UIColor.darkGray
         noDataView.addSubview(noDataLabel)
         
         noDataLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +95,6 @@ final class HomeVC: UIViewController {
     }
     
     private func setupData() {
-        interactor?.fetchSearchItems()
         dataSource = configureDataSource()
     }
     
@@ -124,6 +128,7 @@ final class HomeVC: UIViewController {
         
         for sizeType in SearchList.ImageModel.SizeType.allCases {
             let images = viewModel.allImages.filter { $0.categoryType == sizeType }
+            if (images.count == 0) { continue }
             snapshot.appendSections([sizeType])
             snapshot.appendItems(images, toSection: sizeType)
         }
@@ -153,6 +158,7 @@ extension HomeVC: UISearchBarDelegate {
 extension HomeVC: SearchViewProtocol {
     func showNoData() {
         DispatchQueue.main.async {
+            self.noDataLabel.text = "No Search Results!"
             self.collectionView?.isHidden = true
             self.noDataView.isHidden = false
         }
