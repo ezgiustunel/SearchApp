@@ -31,8 +31,8 @@ final class ImageCVC: UICollectionViewCell {
     }
     
     // MARK: - Setup
-    func setData(imageModel: SearchImageModel) {
-        imageView.image = imageModel.image
+    func setData(imageModel: SearchList.ImageModel) {
+        imageView.image = imageModel.imageData.image
         self.backgroundColor = UIColor.black.withAlphaComponent(0.05)
     }
     

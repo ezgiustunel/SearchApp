@@ -7,28 +7,29 @@
 
 import UIKit
 
-final class HomeVC: UIViewController {
+protocol SearchViewProtocol {
+    var router: SearchRouterProtocol? { get set }
+    var interactor: SearchInteractorProtocol? { get set }
+    func updateDataSource(viewModel: SearchList.ImageModel.ViewModel)
+}
+
+final class HomeVC: UIViewController, SearchViewProtocol {
     private var collectionView: UICollectionView?
     private let searchController = UISearchController(searchResultsController: nil)
-    private var searchVM = SearchVM()
-    private var imageSections = [[SearchImageModel]]()
     private var dataSource: DataSource!
     private var snapshot = DataSourceSnapshot()
     
-    typealias DataSource = UICollectionViewDiffableDataSource<ImageSection, SearchImageModel>
-    typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<ImageSection, SearchImageModel>
+    typealias DataSource = UICollectionViewDiffableDataSource<SearchList.ImageModel.SizeType, SearchList.ImageModel>
+    typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<SearchList.ImageModel.SizeType, SearchList.ImageModel>
+    
+    var router: SearchRouterProtocol?
+    var interactor: SearchInteractorProtocol?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(updateDataSource), name: .ReloadImageCollectionView, object: nil)
         setupUI()
         setupData()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: .ReloadImageCollectionView, object: nil)
     }
     
     // MARK: - Setup
@@ -62,7 +63,7 @@ final class HomeVC: UIViewController {
     }
     
     private func setupData() {
-        searchVM.loadItems(term: "hypercasual")
+        interactor?.filterSearch(term: "world")
         dataSource = configureDataSource()
     }
     
@@ -75,20 +76,14 @@ final class HomeVC: UIViewController {
             section.orthogonalScrollingBehavior = .groupPaging
             section.interGroupSpacing = 10
             section.contentInsets = .init(top: 0, leading: 10, bottom: 30, trailing: 10)
-            //section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
-            
             section.supplementariesFollowContentInsets = false
             return section
         }
     }
     
-    private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
-        .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-    }
-    
     // MARK: - CollectionView Diffable DataSource
-    private func configureDataSource() -> UICollectionViewDiffableDataSource<ImageSection, SearchImageModel> {
-        let dataSource = UICollectionViewDiffableDataSource<ImageSection, SearchImageModel>(collectionView: collectionView ?? UICollectionView()) { (collectionView, indexPath, imageModel) -> UICollectionViewCell? in
+    private func configureDataSource() -> UICollectionViewDiffableDataSource<SearchList.ImageModel.SizeType, SearchList.ImageModel> {
+        let dataSource = UICollectionViewDiffableDataSource<SearchList.ImageModel.SizeType, SearchList.ImageModel>(collectionView: collectionView ?? UICollectionView()) { (collectionView, indexPath, imageModel) -> UICollectionViewCell? in
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCVC.reuseIdentifier, for: indexPath) as! ImageCVC
             cell.setData(imageModel: imageModel)
@@ -98,20 +93,14 @@ final class HomeVC: UIViewController {
     }
     
     // MARK: - Notification
-    @objc func updateDataSource() {
-        imageSections = ImageHelper.shared.imageSectionData
-        
+    func updateDataSource(viewModel: SearchList.ImageModel.ViewModel) {
         snapshot = DataSourceSnapshot()
         
-        snapshot.appendSections([ImageSection.lessOrEqual100kb,
-                                 ImageSection.between101and250kb,
-                                 ImageSection.between251and500kb,
-                                 ImageSection.higherThan500kb])
-        
-        snapshot.appendItems(imageSections[0], toSection: .lessOrEqual100kb)
-        snapshot.appendItems(imageSections[1], toSection: .between101and250kb)
-        snapshot.appendItems(imageSections[2], toSection: .between251and500kb)
-        snapshot.appendItems(imageSections[3], toSection: .higherThan500kb)
+        for sizeType in SearchList.ImageModel.SizeType.allCases {
+            let images = viewModel.allImages.filter { $0.categoryType == sizeType }
+            snapshot.appendSections([sizeType])
+            snapshot.appendItems(images, toSection: sizeType)
+        }
         
         dataSource.apply(snapshot, animatingDifferences: false)
     }
@@ -120,17 +109,15 @@ final class HomeVC: UIViewController {
 extension HomeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let imageModel = dataSource.itemIdentifier(for: indexPath) else { return }
-        let vc = ImagePreviewVC()
-        vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        vc.image = imageModel.image
-        present(vc, animated: true)
+        router?.navigatePreviewPage(image: imageModel.imageData.image)
     }
 }
 
 extension HomeVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
-        searchVM.loadItems(term: searchText)
+        searchController.isActive = false
+        searchController.searchBar.text = searchText
+        interactor?.filterSearch(term: searchText)
     }
 }

@@ -7,23 +7,23 @@
 
 import Foundation
 
-protocol SearchServiceDelegate {
-    func getItems(term: String, completion:@escaping (Result<SearchResponseModel, Error>) -> Void)
+protocol SearchServiceProtocol {
+    func getItems(term: String, completion:@escaping (SearchResponseModel, Error?) -> Void)
 }
 
-final class SearchService: SearchServiceDelegate {
-    func getItems(term: String, completion: @escaping (Result<SearchResponseModel, Error>) -> Void) {
+final class SearchService: SearchServiceProtocol {
+    func getItems(term: String, completion: @escaping (SearchResponseModel, Error?) -> Void) {
         
         let searchEndpoint = APIRouter.search(term: term)
         let searchUrlRequest = searchEndpoint.request
-        let api = API(request: searchUrlRequest)
+        let api = APIService(request: searchUrlRequest)
         
         api.performRequest { result in
             switch result {
             case .success(let response):
-                completion(.success(response))
+                completion(response, nil)
             case .failure(let error):
-                completion(.failure(error))
+                completion(SearchResponseModel(), error)
             }
         }
     }

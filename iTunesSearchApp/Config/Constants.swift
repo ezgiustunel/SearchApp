@@ -11,8 +11,3 @@ struct Constants {
     //API
     static let baseURL = "https://itunes.apple.com/"    
 }
-
-extension Notification.Name {
-    public static var ReloadImageCollectionView: Notification.Name { return self.init("notification.ReloadImageCollectionView") }
-    public static var SearchAPIFailure: Notification.Name { return self.init("notification.SearchAPIFailure") }
-}

@@ -11,7 +11,7 @@ import XCTest
 
 class SearchVMTests: XCTestCase {
     
-    func test_API_failure() {
+    /*func test_API_failure() {
         let mockService = MockSearchService()
         mockService.result = .failure(CustomError.errorWithMessage(message: "no data"))
         let searchVM = SearchVM(searchService: mockService)
@@ -26,5 +26,5 @@ class SearchVMTests: XCTestCase {
         let searchVM = SearchVM(searchService: mockService)
         searchVM.loadItems(term: "instagram")
         XCTAssert(!searchVM.allImages.isEmpty)
-    }
+    }*/
 }

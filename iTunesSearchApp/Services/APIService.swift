@@ -7,7 +7,12 @@
 
 import Foundation
 
-final class API {
+protocol SearchAPIProtocol {
+    func performRequest(completion:@escaping (Result<SearchResponseModel, Error>) -> Void)
+    func parseJSON(data: Data, completion:@escaping (Result<SearchResponseModel, Error>) -> Void)
+}
+
+class APIService: SearchAPIProtocol {
     let request: URLRequest
     lazy var configuration: URLSessionConfiguration = URLSessionConfiguration.default
     lazy var session: URLSession = URLSession(configuration: self.configuration)

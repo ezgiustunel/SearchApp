@@ -9,7 +9,7 @@ import Foundation
 
 @testable import iTunesSearchApp
 
-class MockSearchService: SearchServiceDelegate {
+class MockSearchService: SearchServiceProtocol {
     var result: Result<SearchResponseModel, Error>!
     
     func getItems(term: String, completion: @escaping (Result<SearchResponseModel, Error>) -> Void) {
