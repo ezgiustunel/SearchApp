@@ -8,11 +8,11 @@
 import Foundation
 
 protocol SearchServiceProtocol {
-    func getItems(term: String, completion:@escaping (SearchResponseModel, Error?) -> Void)
+    func getItems(term: String, completion: @escaping (Result<SearchResponseModel, Error>) -> Void)
 }
 
 final class SearchService: SearchServiceProtocol {
-    func getItems(term: String, completion: @escaping (SearchResponseModel, Error?) -> Void) {
+    func getItems(term: String, completion: @escaping (Result<SearchResponseModel, Error>) -> Void) {
         
         let searchEndpoint = APIRouter.search(term: term)
         let searchUrlRequest = searchEndpoint.request
@@ -21,9 +21,9 @@ final class SearchService: SearchServiceProtocol {
         api.performRequest { result in
             switch result {
             case .success(let response):
-                completion(response, nil)
+                completion(.success(response))
             case .failure(let error):
-                completion(SearchResponseModel(), error)
+                completion(.failure(error))
             }
         }
     }

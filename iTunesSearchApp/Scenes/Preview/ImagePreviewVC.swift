@@ -25,10 +25,12 @@ final class ImagePreviewVC: UIViewController {
         
         //ImageView
         imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 100, height: 100)))
+
         guard let imageView = imageView else { return }
         guard let image = image else { return }
         
         imageView.image = image
+        imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         let widthConstraint = NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal,

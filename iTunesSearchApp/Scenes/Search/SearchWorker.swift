@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SearchWorkerProtocol {
-    func getSearchItems(term: String, completion: @escaping (SearchResponseModel, Error?) -> Void)
+    func getSearchItems(term: String, completion: @escaping (Result<SearchResponseModel, Error>) -> Void)
     func getImageData(imageUrl: String, completion: @escaping (Data?, Error?) -> Void)
 }
 
@@ -17,9 +17,9 @@ final class SearchWorker: SearchWorkerProtocol {
     let imageService: ImageServiceProtocol = ImageService()
     
     // MARK: Worker methods
-    func getSearchItems(term: String, completion: @escaping (SearchResponseModel, Error?) -> Void) {
-        searchService.getItems(term: term) { result, error in
-            completion(result, error)
+    func getSearchItems(term: String, completion: @escaping (Result<SearchResponseModel, Error>) -> Void) {
+        searchService.getItems(term: term) { result in
+            completion(result)
         }
     }
     

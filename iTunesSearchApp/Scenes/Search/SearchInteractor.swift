@@ -10,13 +10,15 @@ import Foundation
 protocol SearchInteractorProtocol {
     var presenter: SearchPresenterProtocol? { get set }
     func fetchImages(_ urls: [String])
-    func filterSearch(term: String)
+    func fetchSearchItems()
+    func filterSearchWith(term: String)
     func loadScreenShotImages(items: [SearchModel])
 }
 
 final class SearchInteractor: SearchInteractorProtocol {
     var presenter: SearchPresenterProtocol?
     var worker: SearchWorkerProtocol = SearchWorker()
+    private var termText = "world"
     
     func fetchImages(_ urls: [String]) {
         let queue = DispatchQueue(label: "com.gcd.iTuneSearchQueue", qos: .utility, attributes: .concurrent)
@@ -40,11 +42,26 @@ final class SearchInteractor: SearchInteractorProtocol {
         }
     }
     
-    func filterSearch(term: String) {
-        presenter?.cleanAllItems()
-        worker.getSearchItems(term: term) { result, error in
-            self.loadScreenShotImages(items: result.results)
+    func fetchSearchItems() {
+        self.presenter?.presentLoading()
+        worker.getSearchItems(term: termText) { result in
+            switch result {
+            case .success(let response):
+                if (response.results.count > 0) {
+                    self.loadScreenShotImages(items: response.results)
+                } else {
+                    self.presenter?.presentNoData()
+                }
+            case .failure(_):
+                self.presenter?.presentNoData()
+            }
         }
+    }
+    
+    func filterSearchWith(term: String) {
+        termText = term
+        presenter?.cleanAllItems()
+        fetchSearchItems()
     }
     
     func loadScreenShotImages(items: [SearchModel]) {
