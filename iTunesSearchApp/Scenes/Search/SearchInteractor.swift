@@ -74,11 +74,7 @@ final class SearchInteractor: SearchInteractorProtocol {
                     if error == nil && !self.workItem.isCancelled {
                         if let data = data {
                             self.presenter?.presentSearchData(imageModel: SearchList.ImageModel(imageData: data, categoryType: .none))
-                        } else {
-                            self.presenter?.presentNoData()
                         }
-                    } else {
-                        self.presenter?.presentNoData()
                     }
                 }
             }
