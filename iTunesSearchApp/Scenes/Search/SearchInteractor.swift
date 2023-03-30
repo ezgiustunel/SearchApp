@@ -71,7 +71,7 @@ final class SearchInteractor: SearchInteractorProtocol {
                     defer {
                         semaphore.signal()
                     }
-                    if error == nil {
+                    if error == nil && !self.workItem.isCancelled {
                         if let data = data {
                             self.presenter?.presentSearchData(imageModel: SearchList.ImageModel(imageData: data, categoryType: .none))
                         } else {
