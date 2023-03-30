@@ -9,41 +9,19 @@ import Foundation
 
 protocol SearchInteractorProtocol {
     var presenter: SearchPresenterProtocol? { get set }
-    func fetchImages(_ urls: [String])
     func fetchSearchItems()
     func filterSearchWith(term: String)
     func loadScreenShotImages(items: [SearchModel])
+    func fetchImages(_ urls: [String])
 }
 
 final class SearchInteractor: SearchInteractorProtocol {
     var presenter: SearchPresenterProtocol?
     var worker: SearchWorkerProtocol = SearchWorker()
-    private var termText = "instagram"
     var totalItems: Int = 0
-    
-    func fetchImages(_ urls: [String]) {
-        let queue = DispatchQueue(label: "com.gcd.iTuneSearchQueue", qos: .utility, attributes: .concurrent)
-        let semaphore = DispatchSemaphore(value: 3)
-        
-        for url in urls {
-            queue.async {
-                semaphore.wait()
-                
-                self.worker.getImageData(imageUrl: url) { data, error in
-                    defer {
-                        semaphore.signal()
-                    }
-                    if error == nil {
-                        if let data = data {
-                            self.presenter?.presentSearchData(imageModel: SearchList.ImageModel(imageData: data, categoryType: .none))
-                        }
-                    } else {
-                        self.presenter?.presentNoData()
-                    }
-                }
-            }
-        }
-    }
+    private var termText = "instagram"
+    private var workItem: DispatchWorkItem = DispatchWorkItem {}
+    private var threadNum: Int = 3
     
     func fetchSearchItems() {
         self.presenter?.presentLoading()
@@ -64,6 +42,7 @@ final class SearchInteractor: SearchInteractorProtocol {
     
     func filterSearchWith(term: String) {
         termText = term
+        workItem.cancel()
         presenter?.cleanAllItems()
         fetchSearchItems()
     }
@@ -76,5 +55,34 @@ final class SearchInteractor: SearchInteractorProtocol {
         }
         
         fetchImages(allImageUrls)
+    }
+    
+    func fetchImages(_ urls: [String]) {
+        let queue = DispatchQueue(label: "com.gcd.iTuneSearchQueue", qos: .utility, attributes: .concurrent)
+        let semaphore = DispatchSemaphore(value: threadNum)
+        
+        workItem = DispatchWorkItem {
+            for url in urls {
+                if (self.workItem.isCancelled) {
+                    break
+                }
+                semaphore.wait()
+                self.worker.getImageData(imageUrl: url) { data, error in
+                    defer {
+                        semaphore.signal()
+                    }
+                    if error == nil {
+                        if let data = data {
+                            self.presenter?.presentSearchData(imageModel: SearchList.ImageModel(imageData: data, categoryType: .none))
+                        } else {
+                            self.presenter?.presentNoData()
+                        }
+                    } else {
+                        self.presenter?.presentNoData()
+                    }
+                }
+            }
+        }
+        queue.async(execute: workItem)
     }
 }

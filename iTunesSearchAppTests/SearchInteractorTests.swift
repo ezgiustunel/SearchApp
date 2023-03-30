@@ -9,7 +9,7 @@ import XCTest
 
 @testable import iTunesSearchApp
 
-class SearchInteractorTests: XCTestCase {
+final class SearchInteractorTests: XCTestCase {
     var interactor: SearchInteractor!
 
     override func setUp() {

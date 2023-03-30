@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  iTunesSearchApp
+
+  Created by Ezgi Üstünel on 30.03.2023.
+  
+*/
+
+"HomeString_searchSomething" = "Bir şey ara...";
+"HomeString_noData" = "Sonuç bulunamadı!";

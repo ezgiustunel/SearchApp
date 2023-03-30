@@ -16,6 +16,14 @@ protocol SearchRouterProtocol {
 
 final class SearchRouter: SearchRouterProtocol {
     weak var view: HomeVC?
+
+    func navigatePreviewPage(image: UIImage) {
+        let vc = ImagePreviewVC()
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        vc.image = image
+        self.view?.present(vc, animated: true)
+    }
     
     static func createSearchScene() -> SearchRouterProtocol {
         let router = SearchRouter()
@@ -33,13 +41,5 @@ final class SearchRouter: SearchRouterProtocol {
         presenter.view = view
         
         return router
-    }
-    
-    func navigatePreviewPage(image: UIImage) {
-        let vc = ImagePreviewVC()
-        vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        vc.image = image
-        self.view?.present(vc, animated: true)
     }
 }

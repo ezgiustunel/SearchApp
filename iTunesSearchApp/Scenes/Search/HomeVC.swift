@@ -72,7 +72,7 @@ final class HomeVC: UIViewController {
         //noDataView.isHidden = true
         view.addSubview(noDataView)
         noDataView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         let noDataViewHorizontalConstraint = NSLayoutConstraint(item: noDataView, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: 0)
         let noDataViewVerticalConstraint = NSLayoutConstraint(item: noDataView, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0)
         let noDataViewWidthConstraint = NSLayoutConstraint(item: noDataView, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: view.frame.size.width)
@@ -80,7 +80,7 @@ final class HomeVC: UIViewController {
         
         view.addConstraints([noDataViewHorizontalConstraint, noDataViewVerticalConstraint, noDataViewWidthConstraint, NoDataViewHeightConstraint])
         
-        noDataLabel.text = "Search something..."
+        noDataLabel.text = HomeString.searchSomething.localized
         noDataLabel.font = noDataLabel.font.withSize(25)
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = UIColor.darkGray
@@ -132,6 +132,7 @@ final class HomeVC: UIViewController {
             snapshot.appendSections([sizeType])
             snapshot.appendItems(images, toSection: sizeType)
         }
+        guard let dataSource = dataSource else { return }
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
@@ -139,6 +140,7 @@ final class HomeVC: UIViewController {
 // MARK: - UICollectionViewDelegate
 extension HomeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let dataSource = dataSource else { return }
         guard let imageModel = dataSource.itemIdentifier(for: indexPath) else { return }
         router?.navigatePreviewPage(image: imageModel.imageData.image)
     }
@@ -158,7 +160,7 @@ extension HomeVC: UISearchBarDelegate {
 extension HomeVC: SearchViewProtocol {
     func showNoData() {
         DispatchQueue.main.async {
-            self.noDataLabel.text = "No Search Results!"
+            self.noDataLabel.text = HomeString.noData.localized
             self.collectionView?.isHidden = true
             self.noDataView.isHidden = false
         }
@@ -174,8 +176,8 @@ extension HomeVC: SearchViewProtocol {
     
     func showEmpty() {
         DispatchQueue.main.async {
-            self.noDataView.isHidden = true
             self.collectionView?.isHidden = true
+            self.noDataView.isHidden = true
         }
     }
 }
