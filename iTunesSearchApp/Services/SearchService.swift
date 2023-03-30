@@ -22,7 +22,6 @@ final class SearchService: SearchServiceProtocol {
                 } else {
                     completion(.success(SearchResponseModel()))
                 }
-                
             case .failure(let error):
                 completion(.failure(error))
             }
