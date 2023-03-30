@@ -64,6 +64,7 @@ final class SearchInteractor: SearchInteractorProtocol {
         workItem = DispatchWorkItem {
             for url in urls {
                 if (self.workItem.isCancelled) {
+                    self.presenter?.cleanAllItems()
                     break
                 }
                 semaphore.wait()
